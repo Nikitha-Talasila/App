@@ -28,7 +28,7 @@ public class DBhelper extends SQLiteOpenHelper {
         DB.execSQL("drop table if exists Userdetails");
     }
 
-    public boolean insertData(String name, String id, String pname,String item, String type) {
+    public boolean insertData(String name, String id, String pname, String item, String type) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);

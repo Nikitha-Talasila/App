@@ -58,6 +58,9 @@
             android:name=".exp8"
             android:exported="true" />
         <activity
+            android:name=".exp9"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

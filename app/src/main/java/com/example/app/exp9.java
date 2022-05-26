@@ -1,5 +1,10 @@
 package com.example.app;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentUris;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -7,24 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 public class exp9 extends AppCompatActivity {
-    EditText name, id, pname,item,type;
+    EditText name, id, pname, item,type;
     Button insert, delete, update, view;
     DBhelper db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.exp9);
 
         name = findViewById(R.id.name);
         id = findViewById(R.id.vid);
         pname = findViewById(R.id.pname);
-        item= findViewById(R.id.item);
+        item=findViewById(R.id.item);
         type = findViewById(R.id.type);
         insert = findViewById(R.id.insert);
         delete = findViewById(R.id.delete);
@@ -34,13 +35,13 @@ public class exp9 extends AppCompatActivity {
         db = new DBhelper(this);
 
         insert.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
                 String nametxt = name.getText().toString();
                 String idtxt = id.getText().toString();
                 String pnametxt = pname.getText().toString();
-                String itemtxt = id.getText().toString();
-                String typetxt = pname.getText().toString();
+                String itemtxt = item.getText().toString();
+                String typetxt = type.getText().toString();
 
                 boolean checkinsert = db.insertData(nametxt, idtxt, pnametxt,itemtxt,typetxt);
 
@@ -56,12 +57,10 @@ public class exp9 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nametxt = name.getText().toString();
-                String idtxt = id.getText().toString();
-                String pnametxt = pname.getText().toString();
-                String itemtxt = id.getText().toString();
-                String typetxt = pname.getText().toString();
+                String contacttxt = id.getText().toString();
+                String dobtxt = pname.getText().toString();
 
-                boolean checkupdate = db.UpdateData(nametxt, idtxt, pnametxt);
+                boolean checkupdate = db.UpdateData(nametxt, contacttxt, dobtxt);
 
                 if (checkupdate == true)
                     Toast.makeText(exp9.this, "updated entry", Toast.LENGTH_SHORT).show();
@@ -97,12 +96,12 @@ public class exp9 extends AppCompatActivity {
                 StringBuffer buffer = new StringBuffer();
                 while(res.moveToNext())
                 {
-                    buffer.append("Vendor Name: "+res.getString(0)+"\n"+"Vendor id : "+res.getString(1)+"\n"+"Product Name : "+res.getString(2)+"\n"+"Item Name : "+res.getString(3)+"\n"+"Category : "+res.getString(4)+"\n\n");
+                    buffer.append("Vendor Name: "+res.getString(0)+"\n"+"ID  : "+res.getString(1)+"\n"+"Product Name : "+res.getString(2)+"\n\n");
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(exp9.this);
                 builder.setCancelable(true);
-                builder.setTitle("Entries");
+                builder.setTitle("User Entries");
                 builder.setMessage(buffer.toString());
                 builder.show();
             }

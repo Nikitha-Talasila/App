@@ -1,6 +1,6 @@
 package com.example.app;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -26,14 +26,14 @@ import java.util.HashMap;
 public class exp8 extends AppCompatActivity {
     EditText pid,pname,items,type,vendor;
     Button insert,delete,update,retrive;
+    //retrive texts
     TextView vend,id,name,ritem,typ;
     FirebaseDatabase firebaseDatabase; //Instance
     DatabaseReference databaseReference;//Ref
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.exp8);
         //insert
         vendor=findViewById(R.id.vendor);
         pid=findViewById(R.id.pid);
@@ -60,6 +60,7 @@ public class exp8 extends AppCompatActivity {
                 databaseReference=firebaseDatabase.getReference("database").child(pname.getText().toString());
                 users use=new users(vendor.getText().toString(),pid.getText().toString(),pname.getText().toString(),items.getText().toString(),type.getText().toString());
                 databaseReference.setValue(use);
+                Toast.makeText(exp8.this,"Inserted Successfully",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -75,6 +76,7 @@ public class exp8 extends AppCompatActivity {
                 hm.put("items",items.getText().toString());
                 hm.put("type",type.getText().toString());
                 databaseReference.child(pname.getText().toString()).updateChildren(hm);
+                Toast.makeText(exp8.this,"Updated Data Successfully",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -83,6 +85,7 @@ public class exp8 extends AppCompatActivity {
             public void onClick(View view) {
                 databaseReference=firebaseDatabase.getReference("database");
                 databaseReference.child(pname.getText().toString()).removeValue();
+                Toast.makeText(exp8.this,"Deleted "+pname.getText().toString()+" data successfully",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -140,3 +143,5 @@ public class exp8 extends AppCompatActivity {
             }
         });
     }}
+
+
